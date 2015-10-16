@@ -38,7 +38,7 @@ Ethernet.begin(mac,ip);
 delay(500);
   
 dScreen.begin(HX8357D);
-dScreen.setRotation(1);
+dScreen.setRotation(2);
 dScreen.setCursor(0,0);
 dScreen.fillScreen(0);
      dScreen.setTextSize(3);
