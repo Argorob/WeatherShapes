@@ -31,6 +31,8 @@ int xScreen =0;
 int yScreen=0;
 
 void setup() {
+  //Initialize Serial
+     Serial.begin(57600); // Start serial connection
 // Initialize network information 
 Ethernet.begin(mac,ip);
 delay(500);
@@ -39,17 +41,28 @@ dScreen.begin(HX8357D);
 dScreen.setRotation(1);
 dScreen.setCursor(0,0);
 dScreen.fillScreen(0);
+     dScreen.setTextSize(3);
+     
+     //Check for connection
+       if (client.connect(server, 80)) {
+    Serial.println("connected");
+    client.println("GET /search?q=arduino HTTP/1.0");
+    client.println();
+  } else {
+    Serial.println("connection failed");
+  }
 
 }
 
 
 void loop() {
-     dScreen.fillScreen(0);
-     dScreen.setTextSize(3);
-     dScreen.setCursor(xScreen,yScreen);
+    
+
+     //dScreen.setCursor(xScreen,yScreen);
     if (client.available()) {
     char c = client.read();
     dScreen.print(c);
+    Serial.println("connecting");
   }
 
   if (!client.connected()) {
